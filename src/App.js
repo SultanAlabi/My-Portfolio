@@ -12,7 +12,7 @@ function getInitialTheme() {
 const projects = [
   {
     title: 'Visitors Management System',
-    description: 'Developed a web-based Visitors Management System during my internship at the Lagos State Ministry of Physical Planning and Urban Development. The system allows for secure and efficient registration of visitors, tracks their check-in/check-out times, and stores visit details in a structured database. Built using Python (Flask), HTML/CSS, and SQLite, the system improves manual visitor logging by digitizing the process, enhancing accountability, and enabling quick access to visitor records.',
+    description: 'Built using Python (Flask), HTML/CSS, and SQLite, the system improves manual visitor logging by digitizing the process, enhancing accountability, and enabling quick access to visitor records.',
     link: 'https://github.com/SultanAlabi/Visitor-Management-System.git'
   },
   {
