@@ -1,5 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import { MdEmail } from 'react-icons/md';
+import { FaGithub, FaLinkedin, FaSnapchatGhost } from 'react-icons/fa';
 
 function getInitialTheme() {
   // Check localStorage first
@@ -133,19 +135,19 @@ function App() {
           <h2>Contact Me</h2>
           <div className="contact-icons">
             <a href="mailto:alabisultan28@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
-              📧
+              <MdEmail size={28} />
               <span className="tooltip">Email</span>
             </a>
             <a href="https://github.com/SultanAlabi" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <span role="img" aria-label="GitHub">🐙</span>
+              <FaGithub size={28} />
               <span className="tooltip">GitHub</span>
             </a>
             <a href="https://www.linkedin.com/in/abdulhameed-alabi" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <span role="img" aria-label="LinkedIn">💼</span>
+              <FaLinkedin size={28} />
               <span className="tooltip">LinkedIn</span>
             </a>
             <a href="https://snapchat.com/t/jjSTm7LQ" target="_blank" rel="noopener noreferrer" aria-label="Snapchat">
-              <span role="img" aria-label="Snapchat">👻</span>
+              <FaSnapchatGhost size={28} />
               <span className="tooltip">Snapchat</span>
             </a>
           </div>
