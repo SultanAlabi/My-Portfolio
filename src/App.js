@@ -22,6 +22,11 @@ const projects = [
     description: 'Built using Python (Flask) during my internship. Allows secure staff attendance tracking with timestamps. GitHub repo included.',
     link: 'https://github.com/SultanAlabi/Office_Check_In.git'
   },
+  {
+    title: 'Personal Portfolio',
+    description: 'My personal portfolio, proudly built using React, showcasing my projects and demonstrating my proficiency in modern web development.',
+    link: 'https://portfolio-sultan-projects.vercel.app'
+  },
   // ... add more projects here
 ];
 
