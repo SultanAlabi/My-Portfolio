@@ -27,6 +27,12 @@ const projects = [
     description: 'My personal portfolio, proudly built using React, showcasing my projects and demonstrating my proficiency in modern web development.',
     link: 'https://portfolio-sultan-projects.vercel.app'
   },
+
+  {
+    title: 'Document Digitization and Search Tool',
+    description: 'Digitize, organize, and search your documents easily—all in one accessible tool.',
+    link: 'https://github.com/SultanAlabi/Document-Digitization-and-Search-Tool.git'
+  },
   // ... add more projects here
 ];
 
