@@ -33,6 +33,12 @@ const projects = [
     description: 'Digitize, organize, and search your documents easily—all in one accessible tool.',
     link: 'https://github.com/SultanAlabi/Document-Digitization-and-Search-Tool.git'
   },
+
+  {
+    title: 'Ministry Asset Inventory System',
+    description: 'A Django web app for tracking and managing government assets, featuring CRUD operations, visual dashboards, and summary reports',
+    link: 'https://github.com/SultanAlabi/Ministry-Asset-Inventory-System.git'
+  },
   // ... add more projects here
 ];
 
