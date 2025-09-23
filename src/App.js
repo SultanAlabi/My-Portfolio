@@ -39,6 +39,13 @@ const projects = [
     description: 'A Django web app for tracking and managing government assets, featuring CRUD operations, visual dashboards, and summary reports',
     link: 'https://github.com/SultanAlabi/Ministry-Asset-Inventory-System.git'
   },
+
+  
+  {
+    title: 'Islamic Tally Counter',
+    description: 'A modern, accessible, and mobile-friendly Islamic tally counter web app built with HTML, CSS, and JavaScript.', 
+    link: 'https://github.com/SultanAlabi/Islamic-Tally-counter.git'
+  },
   // ... add more projects here
 ];
 
