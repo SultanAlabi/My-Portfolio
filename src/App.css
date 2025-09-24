@@ -2,26 +2,72 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --bg: #f7f9fb;
+  --card-bg: #fff;
+  --surface: #f1f5fa;
+  --text: #222;
+  --muted: #888;
+  --primary: #3358e4;
+  --primary-2: #4f8cff;
+  --chip-bg: #eef6ff;
+  --nav-bg: #fff;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --input-border: 1px solid #e6eefc;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-  background: #f7f9fb;
-  color: #222;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .App {
   max-width: 900px;
   margin: 40px auto;
   padding: 24px;
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow);
   transition: background 0.3s, color 0.3s;
 }
 
+/* theme fade overlay — uses pseudo-element to crossfade cleanly */
+.App.theme-fade::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: var(--bg);
+  opacity: 0.0;
+  transition: opacity 350ms ease-in-out, background 350ms ease-in-out;
+  z-index: 9999;
+}
+.App.theme-fade.dark::after,
+.App.dark.theme-fade::after {
+  background: #0f1720; /* dark page background for transition */
+  opacity: 0.98;
+}
+
+/* also allow a soft transition on color properties for the whole app */
+.App, .App * {
+  transition: color 350ms ease-in-out, background-color 350ms ease-in-out, border-color 250ms ease-in-out;
+}
+
 .App.dark {
-  background: #181c25;
-  color: #f7f9fb;
+  /* dark theme variables override */
+  --bg: #0f1720; /* page background */
+  --card-bg: #232946; /* panels */
+  --surface: #232946;
+  --text: #f7f9fb;
+  --muted: #b0b8c9;
+  --primary: #a3bffa;
+  --primary-2: #4f8cff;
+  --chip-bg: #2e354f;
+  --nav-bg: #232946;
+  --shadow: 0 6px 30px rgba(0,0,0,0.45);
+  --input-border: 1px solid #3a4262;
 }
 
 .App-logo {
@@ -36,8 +82,8 @@ body {
 }
 
 .App-header {
-  background: linear-gradient(90deg, #4f8cff 0%, #3358e4 100%);
-  color: #fff;
+  background: linear-gradient(90deg, var(--primary-2) 0%, var(--primary) 100%);
+  color: var(--text);
   padding: 40px 0 24px 0;
   border-radius: 16px 16px 0 0;
   margin-bottom: 32px;
@@ -49,30 +95,44 @@ body {
   justify-content: center;
 }
 
+/* add padding to ensure header controls don't overlap centered title */
+.App-header {
+  padding-right: 120px; /* room for header controls */
+  box-sizing: border-box;
+}
+
 .App.dark .App-header {
   background: linear-gradient(90deg, #232946 0%, #181c25 100%);
-  color: #f7f9fb;
+  color: var(--text);
+}
+
+.header-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 50;
 }
 
 .theme-toggle {
-  position: absolute;
-  top: 24px;
-  right: 32px;
-  background: #fff;
-  color: #3358e4;
+  position: relative;
+  background: var(--card-bg);
+  color: var(--primary);
   border: none;
   border-radius: 20px;
-  padding: 8px 18px;
+  padding: 8px 14px;
   font-size: 1rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(79,140,255,0.08);
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s, transform 120ms ease-in-out;
 }
 
 .App.dark .theme-toggle {
-  background: #232946;
-  color: #f7f9fb;
-  box-shadow: 0 2px 8px rgba(51,88,228,0.12);
+  background: var(--card-bg);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .App-header h1 {
@@ -103,7 +163,7 @@ body {
 section {
   margin-bottom: 32px;
   padding: 24px;
-  background: #f1f5fa;
+  background: var(--surface);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(79,140,255,0.04);
   text-align: left;
@@ -112,18 +172,18 @@ section {
 }
 
 .App.dark section {
-  background: #232946;
-  color: #f7f9fb;
+  background: var(--surface);
+  color: var(--text);
 }
 
 section h2 {
   margin-top: 0;
-  color: #3358e4;
+  color: var(--primary);
   font-size: 1.5rem;
 }
 
 .App.dark section h2 {
-  color: #4f8cff;
+  color: var(--primary-2);
 }
 
 section ul {
@@ -136,18 +196,18 @@ section li {
 }
 
 section a {
-  color: #4f8cff;
+  color: var(--primary-2);
   text-decoration: none;
   transition: color 0.2s;
 }
 
 section a:hover {
-  color: #3358e4;
+  color: var(--primary);
   text-decoration: underline;
 }
 
 .App.dark section a {
-  color: #a3bffa;
+  color: var(--primary);
 }
 
 @media (max-width: 600px) {
@@ -172,9 +232,15 @@ section a:hover {
   }
   
   .theme-toggle {
-    top: 16px;
-    right: 16px;
-    padding: 8px 12px;
+    /* make toggle smaller on mobile and allow flow next to resume button */
+    padding: 8px 10px;
+  }
+
+  /* on small screens, don't absolutely position controls — stack them */
+  .App-header .header-controls {
+    position: static;
+    margin-top: 12px;
+    justify-content: center;
   }
 
   section {
@@ -254,14 +320,14 @@ footer {
 
 .contact-icons a {
   font-size: 2.2rem;
-  color: #4f8cff;
+  color: var(--primary-2);
   transition: color 0.2s, transform 0.2s;
   text-decoration: none;
   position: relative;
 }
 
 .contact-icons a:hover {
-  color: #3358e4;
+  color: var(--primary);
   transform: scale(1.2);
 }
 
@@ -296,7 +362,7 @@ footer {
 }
 
 .App.dark .contact-icons a {
-  color: #a3bffa;
+  color: var(--primary);
 }
 
 .App.dark .contact-icons a:hover {
@@ -310,7 +376,7 @@ footer {
 }
 
 .project-tile {
-  background: #fff;
+  background: var(--card-bg);
   padding: 24px;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
@@ -321,18 +387,18 @@ footer {
 }
 
 .App.dark .project-tile {
-  background: #2e354f;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  background: var(--card-bg);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 .project-tile h3 {
   margin: 0 0 12px 0;
-  color: #3358e4;
+  color: var(--primary);
   font-size: 1.2rem;
 }
 
 .App.dark .project-tile h3 {
-  color: #a3bffa;
+  color: var(--primary);
 }
 
 .project-tile p {
@@ -342,7 +408,7 @@ footer {
 }
 
 .project-tile a {
-  background: #4f8cff;
+  background: var(--primary-2);
   color: #fff;
   padding: 8px 16px;
   border-radius: 6px;
@@ -352,7 +418,7 @@ footer {
 }
 
 .project-tile a:hover {
-  background: #3358e4;
+  background: var(--primary);
 }
 
 @keyframes fadeIn {
@@ -402,21 +468,89 @@ footer {
   color: #f7f9fb;
 }
 
+/* Resume button */
+.resume-btn {
+  background: rgba(255,255,255,0.95);
+  color: #3358e4;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Filters */
+.project-filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.tag-buttons { display:flex; gap:8px; flex-wrap:wrap }
+.tag-btn {
+  background: var(--chip-bg);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.tag-btn.active { background: var(--primary); color: white }
+.project-search { padding: 8px 12px; border-radius: 8px; border: var(--input-border) }
+
+/* tags inside project */
+.project-meta { margin: 10px 0 }
+.project-meta .tag { display:inline-block; background:var(--chip-bg); padding:4px 8px; margin-right:6px; border-radius:6px; font-size:0.85rem }
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.modal {
+  background: var(--card-bg, #fff);
+  color: inherit;
+  padding: 20px;
+  border-radius: 12px;
+  width: min(720px, calc(100% - 48px));
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+.modal h3 { margin-top:0 }
+.modal-close { position:absolute; right:18px; top:18px; background:transparent; border:none; font-size:1.6rem; cursor:pointer }
+.modal .tag-list { margin:8px 0 }
+.modal .tag { margin-right:8px; padding:6px 10px; background:#eef6ff; border-radius:999px }
+.modal-links { margin-top:12px; display:flex; gap:12px }
+
+/* Contact form */
+.contact-form { display:flex; flex-direction:column; gap:8px; max-width:640px; margin:0 auto }
+.contact-form label { display:flex; flex-direction:column; gap:6px; font-weight:600 }
+.contact-form input, .contact-form textarea { padding:8px 10px; border-radius:8px; border:var(--input-border) }
+.contact-form button { background:var(--primary); color:white; padding:8px 12px; border-radius:8px; border:none; cursor:pointer }
+.contact-sent { color: green; margin-top:8px }
+
+/* make modal adapt to dark mode */
+.App.dark .modal { background:var(--card-bg); color:var(--text) }
+
+
 .App.dark .carousel-nav:hover {
   background: #2e354f;
-  color: #a3bffa;
+  color: var(--primary);
 }
 
 .Skills h3 {
   text-align: center;
-  color: #5a677d;
+  color: var(--muted);
   font-weight: 500;
   margin-top: 24px;
   margin-bottom: 20px;
 }
 
 .App.dark .Skills h3 {
-  color: #b0b8c9;
+  color: var(--muted);
 }
 
 .Skills ul {
@@ -430,7 +564,7 @@ footer {
 
 .Skills li {
   background: #e9effc;
-  color: #3358e4;
+  color: var(--primary);
   padding: 10px 20px;
   border-radius: 25px;
   font-weight: 500;
@@ -448,8 +582,8 @@ footer {
 }
 
 .App.dark .Skills li {
-  background: #2e354f;
-  color: #a3bffa;
+  background: var(--chip-bg);
+  color: var(--primary);
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -483,7 +617,7 @@ footer {
   justify-content: center;
   gap: 32px;
   padding: 16px 0;
-  background: #fff;
+  background: var(--nav-bg);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -491,7 +625,7 @@ footer {
 }
 
 .main-nav a {
-  color: #3358e4;
+  color: var(--primary);
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
@@ -499,16 +633,16 @@ footer {
 }
 
 .main-nav a:hover {
-  color: #4f8cff;
+  color: var(--primary-2);
 }
 
 .App.dark .main-nav {
-  background: #232946;
+  background: var(--nav-bg);
   box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .App.dark .main-nav a {
-  color: #a3bffa;
+  color: var(--primary);
 }
 
 .App.dark .main-nav a:hover {
